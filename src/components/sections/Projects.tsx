@@ -146,19 +146,16 @@ export default function Projects() {
     <section
       id="projects"
       aria-label="Selected projects"
-      className="relative z-10"
+      className="relative z-10 border-t border-edge bg-obsidian/85 backdrop-blur-[6px]"
     >
-      {/* readability scrim above the hologram district */}
-      <div aria-hidden className="scene-scrim pointer-events-none absolute inset-0" />
-
-      <div className="relative mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
+      <div className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         {/* heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 md:mb-24"
+          className="mb-16 md:mb-20"
         >
           <p className="label-mono mb-4">FILE / PORTFOLIO — DISTRICT 02</p>
           <h2 className="h-section text-[clamp(2rem,5vw,4rem)] text-bone">
@@ -170,8 +167,8 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* floating glass project panels */}
-        <div className="flex flex-col gap-8 md:gap-12">
+        {/* editorial project rows */}
+        <div className="flex flex-col">
           {projects.map((project, i) => (
             <motion.article
               key={project.id}
@@ -179,11 +176,13 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.85, delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}
-              className={`glass-panel group relative p-6 md:p-10 ${
-                i % 2 === 1 ? "md:ml-auto md:max-w-[92%]" : "md:mr-auto md:max-w-[92%]"
-              }`}
+              className="group relative border-t border-edge py-12 md:py-16 last:border-b"
             >
-              <div className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
+              <div
+                className={`grid items-center gap-8 md:grid-cols-12 md:gap-12 ${
+                  i % 2 === 1 ? "" : ""
+                }`}
+              >
                 {/* visual */}
                 <button
                   onClick={() => setSelected(project)}

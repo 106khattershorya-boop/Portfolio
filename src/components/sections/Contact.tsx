@@ -80,18 +80,7 @@ export default function Contact() {
         <label htmlFor={id} className="label-mono mb-2 block text-[9px]">
           {label}
         </label>
-        {textarea ? (
-          <textarea
-            rows={5}
-            {...(common as object)}
-            {...(props as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          />
-        ) : (
-          <input
-            {...(common as object)}
-            {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
-          />
-        )}
+        {textarea ? <textarea rows={5} {...(common as object)} {...props} /> : <input {...(common as object)} {...props} />}
         {error && (
           <p id={`${id}-error`} role="alert" className="mt-2 font-technical text-[11px] text-flux">
             {error}
@@ -115,11 +104,8 @@ export default function Contact() {
     <section
       id="contact"
       aria-label="Contact"
-      className="relative z-10"
+      className="relative z-10 border-t border-edge bg-obsidian/90 backdrop-blur-[6px]"
     >
-      {/* readability scrim above the final overlook */}
-      <div aria-hidden className="scene-scrim pointer-events-none absolute inset-0" />
-
       {/* neon horizon tint */}
       <div
         aria-hidden
@@ -129,7 +115,7 @@ export default function Contact() {
             "radial-gradient(ellipse 50% 100% at 20% 0%, rgba(255,45,149,0.08), transparent 70%), radial-gradient(ellipse 50% 100% at 80% 0%, rgba(0,229,255,0.08), transparent 70%)",
         }}
       />
-      <div className="relative mx-auto max-w-[1400px] px-5 py-28 pb-36 md:px-10 md:py-40 md:pb-48">
+      <div className="relative mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         <motion.p {...reveal} transition={{ duration: 0.7 }} className="label-mono mb-4">
           TRANSMISSION / UPLINK — DISTRICT 06
         </motion.p>
@@ -153,7 +139,7 @@ export default function Contact() {
           {/* channels */}
           <motion.div {...reveal} transition={{ duration: 0.8, delay: 0.12 }} className="space-y-3 md:col-span-5">
             {/* email */}
-            <div className="glass-panel p-5">
+            <div className="border border-edge bg-midnight/40 p-5">
               <p className="label-mono mb-3 text-[9px]">EMAIL — DIRECT LINE</p>
               <div className="flex flex-wrap items-center gap-3">
                 <a
@@ -179,7 +165,7 @@ export default function Contact() {
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-panel group flex items-center justify-between p-5 transition-all duration-300 hover:border-neon/60"
+              className="group flex items-center justify-between border border-edge bg-midnight/40 p-5 transition-all duration-300 hover:border-neon/60"
             >
               <div>
                 <p className="label-mono mb-2 text-[9px]">GITHUB — SOURCE CODE</p>
@@ -195,7 +181,7 @@ export default function Contact() {
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-panel group flex items-center justify-between p-5 transition-all duration-300 hover:border-flux/60"
+              className="group flex items-center justify-between border border-edge bg-midnight/40 p-5 transition-all duration-300 hover:border-flux/60"
             >
               <div>
                 <p className="label-mono mb-2 text-[9px]">LINKEDIN — PROFILE</p>
@@ -213,7 +199,7 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.16 }}
             onSubmit={onSubmit}
             noValidate
-            className="glass-panel-strong p-6 md:col-span-7 md:p-8"
+            className="border border-edge bg-midnight/40 p-6 md:col-span-7 md:p-8"
             aria-label="Contact form"
           >
             <p className="label-mono mb-6 text-[9px]">COMPOSE TRANSMISSION</p>

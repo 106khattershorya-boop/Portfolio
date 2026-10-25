@@ -46,12 +46,9 @@ export default function TechStack() {
     <section
       id="stack"
       aria-label="Tech stack"
-      className="relative z-10"
+      className="relative z-10 border-t border-edge bg-obsidian/85 backdrop-blur-[6px]"
     >
-      {/* readability scrim above the overpass */}
-      <div aria-hidden className="scene-scrim pointer-events-none absolute inset-0" />
-
-      <div className="relative mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
+      <div className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
         <motion.p {...reveal} transition={{ duration: 0.7 }} className="label-mono mb-4">
           FILE / ARSENAL — DISTRICT 04
         </motion.p>
@@ -71,7 +68,7 @@ export default function TechStack() {
               key={group.label}
               {...reveal}
               transition={{ duration: 0.7, delay: 0.05 * i }}
-              className="glass-panel group p-6 transition-all duration-500 hover:border-neon/50"
+              className="group border border-edge bg-midnight/40 p-6 transition-all duration-500 hover:border-neon/50 hover:bg-midnight/70"
             >
               <div className="mb-5 flex items-center justify-between">
                 <p className="label-mono">{group.label}</p>
@@ -107,7 +104,7 @@ export default function TechStack() {
           <motion.div
             {...reveal}
             transition={{ duration: 0.7, delay: 0.25 }}
-            className="glass-panel p-6 transition-colors duration-500 hover:border-flux sm:col-span-2 lg:col-span-1 border-dashed !border-flux/50 bg-flux/[0.03] hover:!border-flux hover:bg-flux/[0.06]"
+            className="border border-dashed border-flux/50 bg-flux/[0.03] p-6 transition-colors duration-500 hover:border-flux hover:bg-flux/[0.06] sm:col-span-2 lg:col-span-1"
           >
             <div className="mb-5 flex items-center justify-between">
               <p className="label-mono text-flux">AREAS OF EXPLORATION</p>

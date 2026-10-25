@@ -15,19 +15,16 @@ export default function Education() {
     <section
       id="education"
       aria-label="Education"
-      className="relative z-10"
+      className="relative z-10 border-t border-edge bg-obsidian/85 backdrop-blur-[6px]"
     >
-      {/* readability scrim above the axis shot */}
-      <div aria-hidden className="scene-scrim pointer-events-none absolute inset-0" />
-
-      <div className="relative mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-36">
+      <div className="mx-auto max-w-[1400px] px-5 py-20 md:px-10 md:py-28">
         <motion.p {...reveal} transition={{ duration: 0.7 }} className="label-mono mb-10">
           FILE / EDUCATION — DISTRICT 05
         </motion.p>
 
         {/* minimal architectural timeline */}
         <div className="relative grid gap-10 md:grid-cols-12">
-          <div className="glass-panel relative p-6 md:col-span-8 md:p-10">
+          <div className="relative md:col-span-8">
             {/* timeline spine */}
             <span
               aria-hidden
@@ -76,7 +73,7 @@ export default function Education() {
             transition={{ duration: 0.8, delay: 0.12 }}
             className="md:col-span-4"
           >
-            <div className="glass-panel p-6">
+            <div className="border border-edge bg-midnight/40 p-6">
               <p className="label-mono mb-4">STRUCTURE READOUT</p>
               <dl className="space-y-3 font-technical text-[11px]">
                 {[

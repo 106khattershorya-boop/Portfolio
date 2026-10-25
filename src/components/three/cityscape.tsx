@@ -3,7 +3,6 @@
 import * as THREE from "three";
 import { useMemo } from "react";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
-import { CORRIDOR_POINTS } from "@/lib/cinematic";
 
 /** Seeded PRNG so the city is deterministic and art-directed, not random noise */
 function mulberry32(seed: number) {
@@ -96,32 +95,6 @@ interface BuildingSpec {
   rotY: number;
 }
 
-const CORRIDOR_R2 = 15 * 15; // clearance radius around the camera flight path
-
-/** wider clearings around specific landmarks the camera rests on */
-const PLAZA: [number, number, number][] = [
-  [64, 18, 24], // rooftop observatory
-  [46, -32, 19], // holo panels
-  [58, -46, 19],
-  [70, -60, 19],
-  [20, 40, 17], // city gate
-];
-
-function inFlightCorridor(x: number, z: number): boolean {
-  for (let i = 0; i < CORRIDOR_POINTS.length; i++) {
-    const dx = x - CORRIDOR_POINTS[i][0];
-    const dz = z - CORRIDOR_POINTS[i][1];
-    if (dx * dx + dz * dz < CORRIDOR_R2) return true;
-  }
-  for (let i = 0; i < PLAZA.length; i++) {
-    const dx = x - PLAZA[i][0];
-    const dz = z - PLAZA[i][1];
-    const r = PLAZA[i][2];
-    if (dx * dx + dz * dz < r * r) return true;
-  }
-  return false;
-}
-
 function generateBuildings(count: number): BuildingSpec[] {
   const rng = mulberry32(2077);
   const specs: BuildingSpec[] = [];
@@ -140,8 +113,6 @@ function generateBuildings(count: number): BuildingSpec[] {
       const dx = x - TOWER_POS.x;
       const dz = z - TOWER_POS.z;
       if (Math.sqrt(dx * dx + dz * dz) < 23) continue;
-      // cinematic flight corridor stays clear so the camera never clips
-      if (inFlightCorridor(x, z)) continue;
       if (rng() < 0.12) continue;
 
       const roll = rng();

@@ -214,106 +214,6 @@
     background-size: 44px 44px;
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   }
-  /* ---- cinematic letterbox (opening bars) ---- */
-  .letterbox {
-    position: fixed;
-    left: 0;
-    right: 0;
-    height: 7vh;
-    background: #030509;
-    z-index: 45;
-    pointer-events: none;
-    transform: scaleY(0);
-    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
-  }
-  .letterbox-top {
-    top: 0;
-    transform-origin: top;
-    border-bottom: 1px solid rgba(0, 229, 255, 0.14);
-  }
-  .letterbox-bottom {
-    bottom: 0;
-    transform-origin: bottom;
-    border-top: 1px solid rgba(0, 229, 255, 0.14);
-  }
-  html[data-cinema="intro"] .letterbox {
-    transform: scaleY(1);
-  }
-  html[data-cinema="live"] .letterbox {
-    transform: scaleY(0);
-  }
-  /* ---- HUD chapter rail ---- */
-  .hud-tick {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: #9ba7b7;
-    transition: color 0.4s ease;
-  }
-  .hud-tick:hover,
-  .hud-tick:focus-visible {
-    color: #f4f5f7;
-  }
-  .hud-tick-num {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-  }
-  .hud-tick-label {
-    font-family: var(--font-technical);
-    font-size: 8px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateX(6px);
-    transition:
-      opacity 0.4s ease,
-      transform 0.4s ease;
-  }
-  .hud-tick:hover .hud-tick-label,
-  .hud-tick[data-active="true"] .hud-tick-label {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .hud-tick-line {
-    display: block;
-    height: 1px;
-    width: 16px;
-    background: #273140;
-    transition:
-      width 0.4s ease,
-      background-color 0.4s ease,
-      box-shadow 0.4s ease;
-  }
-  .hud-tick[data-active="true"] {
-    color: #00e5ff;
-  }
-  .hud-tick[data-active="true"] .hud-tick-line {
-    width: 34px;
-    background: #00e5ff;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
-  }
-  /* ---- glass stage panels ---- */
-  .glass-panel {
-    background: linear-gradient(150deg, rgba(11, 18, 32, 0.62), rgba(7, 9, 13, 0.55));
-    border: 1px solid rgba(39, 49, 64, 0.75);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-  .glass-panel-strong {
-    background: linear-gradient(150deg, rgba(11, 18, 32, 0.82), rgba(7, 9, 13, 0.78));
-    border: 1px solid rgba(39, 49, 64, 0.9);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-  .scene-scrim {
-    background: linear-gradient(
-      to bottom,
-      rgba(7, 9, 13, 0.72),
-      rgba(7, 9, 13, 0.32) 26%,
-      rgba(7, 9, 13, 0.32) 68%,
-      rgba(7, 9, 13, 0.8)
-    );
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -324,11 +224,5 @@
   .radar-sweep,
   .blink-dot {
     animation: none !important;
-  }
-  .letterbox {
-    transition: none;
-  }
-  html[data-cinema="intro"] .letterbox {
-    transform: scaleY(0);
   }
 }

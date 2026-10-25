@@ -3,7 +3,6 @@
 import * as THREE from "three";
 import { useMemo, useLayoutEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { sceneTime } from "@/lib/scene-time";
 
 /**
  * Procedural Eiffel Tower — lattice struts, arches, platforms,
@@ -153,8 +152,8 @@ export function EiffelTower({ position }: { position: [number, number, number] }
     }
   }, [strutData, lampData]);
 
-  useFrame(() => {
-    const t = sceneTime.t;
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime();
     if (beaconRef.current) {
       const mat = beaconRef.current.material as THREE.MeshStandardMaterial;
       mat.emissiveIntensity = 1.6 + Math.sin(t * 2.2) * 1.3;
@@ -232,9 +231,9 @@ export function EiffelTower({ position }: { position: [number, number, number] }
       </mesh>
 
       {/* golden illumination */}
-      <pointLight position={[0, hAt(0.17) + 2, 0]} color="#ffb85c" intensity={330} distance={70} decay={1.6} />
-      <pointLight position={[0, hAt(0.35) + 2, 0]} color="#ffc66d" intensity={240} distance={62} decay={1.6} />
-      <pointLight position={[0, 6, 0]} color="#ff9d3d" intensity={180} distance={40} decay={1.7} />
+      <pointLight position={[0, hAt(0.17) + 2, 0]} color="#ffb85c" intensity={220} distance={62} decay={1.7} />
+      <pointLight position={[0, hAt(0.35) + 2, 0]} color="#ffc66d" intensity={160} distance={55} decay={1.7} />
+      <pointLight position={[0, 6, 0]} color="#ff9d3d" intensity={120} distance={34} decay={1.8} />
     </group>
   );
 }

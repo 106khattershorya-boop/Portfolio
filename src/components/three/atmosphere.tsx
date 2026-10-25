@@ -4,7 +4,6 @@ import * as THREE from "three";
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
-import { sceneTime } from "@/lib/scene-time";
 
 function mulberry32(seed: number) {
   let a = seed >>> 0;
@@ -96,12 +95,12 @@ export function Rain({ count = 2400 }: { count?: number }) {
     []
   );
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     const mesh = meshRef.current;
     if (mesh) {
       const m = mesh.material as THREE.ShaderMaterial;
       if (m?.uniforms?.uTime) {
-        m.uniforms.uTime.value = sceneTime.t;
+        m.uniforms.uTime.value = clock.getElapsedTime();
       }
     }
   });
@@ -151,9 +150,9 @@ export function Mist({ reduced = false }: { reduced?: boolean }) {
     }));
   }, []);
 
-  useFrame(() => {
+  useFrame(({ clock }) => {
     if (reduced || !group.current) return;
-    const t = sceneTime.t;
+    const t = clock.getElapsedTime();
     group.current.children.forEach((child, i) => {
       child.position.x = planes[i].pos[0] + Math.sin(t * 0.03 + planes[i].phase) * 7;
     });
@@ -336,9 +335,9 @@ export function WindowPulses({ reduced = false }: { reduced?: boolean }) {
     [58, 34, -60, 3.1],
     [-92, 24, -6, 4.4],
   ];
-  useFrame(() => {
+  useFrame(({ clock }) => {
     if (reduced) return;
-    const t = sceneTime.t;
+    const t = clock.getElapsedTime();
     mats.current.forEach((m, i) => {
       if (!m) return;
       m.opacity = 0.12 + 0.22 * (Math.sin(t * 1.1 + spots[i][3]) * 0.5 + 0.5);

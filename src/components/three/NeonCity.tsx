@@ -119,24 +119,37 @@ export default function NeonCity() {
   const { ready, tier, reducedMotion, webgl } = useSceneQuality();
   const [sceneOk, setSceneOk] = useState(true);
   const [created, setCreated] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
 
   const showCanvas = ready && webgl && sceneOk;
   const showFallback = !showCanvas || !created;
 
-  // no live scene → the film is off; release the letterbox immediately
+  // fade the city out as the reader scrolls into content
   useEffect(() => {
-    if (!showCanvas) {
-      document.documentElement.setAttribute("data-cinema", "live");
-    }
-  }, [showCanvas]);
+    let raf = 0;
+    const update = () => {
+      const vh = window.innerHeight || 1;
+      const t = Math.min(window.scrollY / (vh * 1.4), 1);
+      const opacity = 1 - t * 0.58; // 1 → 0.42
+      if (wrapRef.current) wrapRef.current.style.opacity = String(opacity);
+    };
+    const loop = () => {
+      update();
+      raf = requestAnimationFrame(loop);
+    };
+    loop();
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   const low = tier === "low";
 
   return (
     <div
+      ref={wrapRef}
       aria-hidden
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000"
+      style={{ opacity: showCanvas && created ? 1 : 1 }}
     >
       {/* fallback underneath everything (also the pre-canvas backdrop) */}
       <div
@@ -150,7 +163,7 @@ export default function NeonCity() {
         <div ref={canvasRef} className="absolute inset-0">
           <SceneErrorBoundary fallback={null}>
             <Canvas
-              frameloop="always"
+              frameloop={reducedMotion ? "demand" : "always"}
               dpr={[1, low ? 1.3 : 1.75]}
               gl={{
                 antialias: true,
@@ -158,7 +171,7 @@ export default function NeonCity() {
                 alpha: false,
                 stencil: false,
               }}
-              camera={{ fov: 46, near: 0.5, far: 1600, position: [38, 48, 196] }}
+              camera={{ fov: 40, near: 0.5, far: 1400, position: [2, 15, 152] }}
               onCreated={({ gl }) => {
                 gl.toneMapping = THREE.ACESFilmicToneMapping;
                 gl.toneMappingExposure = 1.05;
@@ -185,7 +198,7 @@ export default function NeonCity() {
 
       {/* lightweight loading indicator */}
       {showCanvas && !created && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap label-mono animate-pulse">
+        <div className="absolute bottom-6 left-6 label-mono animate-pulse">
           CALIBRATING LENSES / RENDERING DISTRICT…
         </div>
       )}
