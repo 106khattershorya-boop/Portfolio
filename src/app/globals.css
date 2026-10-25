@@ -1,0 +1,228 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* NEON NOIR palette */
+  --color-obsidian: #07090d;
+  --color-midnight: #0b1220;
+  --color-neon: #00e5ff;
+  --color-flux: #ff2d95;
+  --color-aurum: #ffc66d;
+  --color-bone: #f4f5f7;
+  --color-dim: #9ba7b7;
+  --color-edge: #273140;
+
+  /* Fonts */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-technical: var(--font-technical);
+
+  /* shadcn tokens mapped to the dark system */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0rem;
+  --background: #07090d;
+  --foreground: #f4f5f7;
+  --card: #0b1220;
+  --card-foreground: #f4f5f7;
+  --popover: #0b1220;
+  --popover-foreground: #f4f5f7;
+  --primary: #00e5ff;
+  --primary-foreground: #07090d;
+  --secondary: #0b1220;
+  --secondary-foreground: #f4f5f7;
+  --muted: #0b1220;
+  --muted-foreground: #9ba7b7;
+  --accent: #0b1220;
+  --accent-foreground: #f4f5f7;
+  --destructive: #ff2d95;
+  --border: #273140;
+  --input: #273140;
+  --ring: #00e5ff;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+  body {
+    @apply bg-obsidian text-bone font-body;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: rgba(0, 229, 255, 0.25);
+    color: #f4f5f7;
+  }
+  :focus-visible {
+    outline: 1px solid #00e5ff;
+    outline-offset: 3px;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #07090d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #273140;
+    border: 2px solid #07090d;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a4a5f;
+  }
+}
+
+@layer utilities {
+  /* Small uppercase technical label */
+  .label-mono {
+    font-family: var(--font-technical);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #9ba7b7;
+  }
+  .label-mono-neon {
+    font-family: var(--font-technical);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #00e5ff;
+  }
+  /* Section display heading */
+  .h-section {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+  }
+  .text-glow-neon {
+    text-shadow:
+      0 0 18px rgba(0, 229, 255, 0.45),
+      0 0 60px rgba(0, 229, 255, 0.18);
+  }
+  .text-glow-flux {
+    text-shadow:
+      0 0 18px rgba(255, 45, 149, 0.4),
+      0 0 60px rgba(255, 45, 149, 0.15);
+  }
+  .edge-line {
+    border-color: #273140;
+  }
+  /* Film grain overlay */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+  /* Ambient cursor companion — only for fine pointers with motion allowed */
+  .cursor-companion {
+    display: none;
+  }
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .cursor-companion {
+      display: block;
+    }
+  }
+  /* Slow scanline sweep for project visuals */
+  .scanline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 72px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 229, 255, 0.06),
+      transparent
+    );
+    animation: scan 5.5s linear infinite;
+  }
+  @keyframes scan {
+    0% {
+      top: -72px;
+    }
+    100% {
+      top: 100%;
+    }
+  }
+  .radar-sweep {
+    animation: sweep 7s linear infinite;
+    transform-origin: center;
+  }
+  @keyframes sweep {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .blink-dot {
+    animation: blinkdot 2.4s ease-in-out infinite;
+  }
+  @keyframes blinkdot {
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.9);
+    }
+    50% {
+      opacity: 0.35;
+      box-shadow: 0 0 2px rgba(0, 229, 255, 0.3);
+    }
+  }
+  .grid-fade {
+    background-image:
+      linear-gradient(rgba(39, 49, 64, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(39, 49, 64, 0.35) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scanline,
+  .radar-sweep,
+  .blink-dot {
+    animation: none !important;
+  }
+}
