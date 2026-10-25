@@ -5,15 +5,22 @@ import NeonCity from "@/components/three/NeonCity";
 import Nav from "@/components/Nav";
 import Terminal from "@/components/Terminal";
 import CustomCursor from "@/components/CustomCursor";
+import CinematicHUD from "@/components/CinematicHUD";
 import Hero from "@/components/sections/Hero";
 import Projects from "@/components/sections/Projects";
 import About from "@/components/sections/About";
 import TechStack from "@/components/sections/TechStack";
 import Education from "@/components/sections/Education";
 import Contact, { Footer } from "@/components/sections/Contact";
+import { useSceneQuality } from "@/hooks/use-scene-quality";
+import { useCinematicDirector } from "@/hooks/use-cinematic-director";
 
 export default function PortfolioApp() {
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const { ready, webgl } = useSceneQuality();
+
+  // the scroll-driven camera journey — only when the WebGL scene is live
+  useCinematicDirector(ready && webgl);
 
   return (
     <div className="grain relative min-h-screen bg-obsidian">
@@ -25,8 +32,12 @@ export default function PortfolioApp() {
         SKIP TO CONTENT
       </a>
 
-      {/* fixed 3D city backdrop (with static fallback) */}
+      {/* the 3D city — the stage the whole page plays on */}
       <NeonCity />
+
+      {/* cinematic letterbox bars (opening only) */}
+      <div aria-hidden className="letterbox letterbox-top" />
+      <div aria-hidden className="letterbox letterbox-bottom" />
 
       <CustomCursor />
       <Nav
@@ -34,6 +45,8 @@ export default function PortfolioApp() {
         onToggleTerminal={() => setTerminalOpen((v) => !v)}
       />
       <Terminal open={terminalOpen} onClose={() => setTerminalOpen(false)} />
+
+      <CinematicHUD />
 
       <main className="relative">
         <Hero />

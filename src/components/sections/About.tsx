@@ -70,9 +70,12 @@ export default function About() {
     <section
       id="about"
       aria-label="About me"
-      className="relative z-10 border-t border-edge bg-obsidian/85 backdrop-blur-[6px]"
+      className="relative z-10"
     >
-      <div className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-32">
+      {/* readability scrim above the observatory view */}
+      <div aria-hidden className="scene-scrim pointer-events-none absolute inset-0" />
+
+      <div className="relative mx-auto max-w-[1400px] px-5 py-28 md:px-10 md:py-40">
         <motion.p
           {...reveal}
           transition={{ duration: 0.7 }}
@@ -83,7 +86,7 @@ export default function About() {
 
         <div className="grid items-start gap-12 md:grid-cols-12 md:gap-16">
           {/* left: text */}
-          <div className="md:col-span-7">
+          <div className="glass-panel p-6 md:col-span-7 md:p-10">
             <motion.h2
               {...reveal}
               transition={{ duration: 0.8, delay: 0.05 }}
@@ -131,7 +134,9 @@ export default function About() {
             transition={{ duration: 0.9, delay: 0.15 }}
             className="md:col-span-5"
           >
-            <RooftopFrame />
+            <div className="glass-panel p-2">
+              <RooftopFrame />
+            </div>
             <p className="label-mono mt-4 text-right text-[8px]">
               QUIET LOOKOUT — VIEWING THE CITY BETWEEN BUILDS
             </p>

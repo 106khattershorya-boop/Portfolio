@@ -35,3 +35,22 @@ Work Log:
 
 Stage Summary:
 - Site fully functional on / with verified-only content; all links live or honestly labeled; editable config in src/data/profile.ts; SyncFit repo placeholder per instructions
+
+---
+Task ID: 15 (cinematic transformation)
+Agent: main
+Task: Transform NEON NOIR portfolio from "website over 3D backdrop" into a scroll-driven cinematic camera journey (user escalation request)
+
+Work Log:
+- Architecture: real scroll drives a shot-listed camera path. New src/lib/cinematic.ts = shared zero-render store + SHOTS (7 keyframes / 6 chapters: Midnight Approach, Project District x2, Rooftop Observatory, Overpass, Axis, Final Overlook) + INTRO_SHOT establishing frame + catmull/smootherstep sampling
+- src/hooks/use-cinematic-director.ts: measures real DOM sections (data by section id + anchor fraction) -> normalized stops; publishes progress/pointer/phase at rAF; letterbox phase on <html data-cinema>; window.__cine debug handle
+- CinematicCamera.tsx: scroll-scrubbed Catmull-Rom path, 4.6s intro dolly (skips on early scroll/keeps working under reduced-motion at 1:1 damping), camera-local pointer parallax, per-shot FOV blending, own performance.now() dt
+- Set pieces: ProjectDistrict.tsx (3 floating holo panels w/ custom scanline+fresnel shader, canvas glyph textures 01/02/03, plaza pads, conduits, beams), Landmarks.tsx (CityGate flown through on the boulevard, rooftop Observatory the About chapter rests on, 4 volumetric beam columns w/ gradient shader), SceneClock.tsx (single clock reader; avoids THREE.Clock.getElapsedTime/getDelta sharing pitfalls)
+- cityscape.tsx: flight-corridor exclusion (r15) + landmark plazas (observatory r24, panels r19, gate r17) so the camera never clips buildings
+- Sections: opaque blocks -> transparent stages (scene-scrim + glass-panel/glass-panel-strong), Projects rows -> alternating floating glass panels, taller py for dwell; NeonCity: removed old scroll-fade, frameloop always, fallback releases letterbox
+- CinematicHUD.tsx: progress hairline, CH.xx shot label, clickable chapter rail (rAF DOM patching, no re-renders); letterbox + hud-tick + glass CSS in globals.css w/ reduced-motion guards
+- Verified via agent-browser (desktop 1440x900 + mobile 390x844): intro dolly+bars, convergence at every stop, terminal help/projects/unknown/Escape, PackSure modal, HUD chapter jump, form empty->3 alerts / valid->honest mailto draft status, mobile menu, overflowX 0, 0 console/page errors, eslint + tsc clean
+- Fixed during verification: (1) publish loop was scroll-only -> intro never completed without scrolling; (2) camera damping appeared broken in headless — root causes: headless rAF throttling + html scroll-behavior:smooth intercepting eval scrollTo (use behavior:'instant' in tests); (3) react-hooks/immutability violations (mutate via mesh refs / useEffect); (4) hero/observatory/02b/axis art direction pass (look shifts, pullbacks, plaza clearings, gate beam slimming)
+
+Stage Summary:
+- The 3D city is now the main attraction: scroll IS the camera dolly. All prior features preserved (nav scroll-spy, terminal, modal, verified-only content, fallbacks, reduced-motion). Shot list lives in src/lib/cinematic.ts (SHOTS) for easy art direction; debug handle window.__cine.camPos for future tuning

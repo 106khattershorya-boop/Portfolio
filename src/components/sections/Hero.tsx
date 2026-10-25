@@ -24,8 +24,8 @@ export default function Hero() {
       className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden"
     >
       {/* readability scrims — keep text legible over the city */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[72%] bg-gradient-to-t from-obsidian via-obsidian/55 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-[62%] bg-gradient-to-r from-obsidian/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-obsidian/90 via-obsidian/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[58%] bg-gradient-to-r from-obsidian/65 to-transparent" />
 
       {/* decorative technical coordinates */}
       <ul
