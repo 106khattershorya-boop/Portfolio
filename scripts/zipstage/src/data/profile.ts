@@ -65,79 +65,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "packsure",
-    index: "01",
-    name: "CodeFlux PackSure AI",
-    repoName: "CodeFlux",
-    category: "AI / Legal Metrology",
-    description:
-      "A project focused on applying AI to packaged-commodity compliance and Legal Metrology requirements.",
-    overview:
-      "PackSure AI is a compliance-inspection pipeline for packaged commodities. An OCR layer extracts printed declarations from package labels, a rule engine evaluates the extracted fields against Legal Metrology rule sets, and results are stored for review through a web interface with an integrated assistant chatbot.",
-    problem:
-      "Checking packaged-commodity labels against Legal Metrology requirements is largely manual, repetitive and error-prone. The project explores automating the extraction and rule-checking steps so inspection workflows become faster and more consistent.",
-    stack: ["React", "JavaScript", "Python", "OCR", "SQL"],
-    verifiedModules: [
-      "extractor.py / preprocess.py / crop.py — OCR label-extraction pipeline",
-      "compliance.py + rules.json — rule engine for compliance checks",
-      "db_integration.py + sih_schema.sql — SQL result persistence",
-      "chatbot.py — assistant component",
-      "api.py — Python backend interface",
-      "React (Vite) front end in src/",
-    ],
-    verifiedNote:
-      "Capabilities above are inferred from the public repository structure of CodeFlux (SIH 2026 project). No accuracy metrics or deployment claims are made.",
-    links: {
-      github: "https://github.com/106khattershorya-boop/CodeFlux",
-      live: null,
-    },
-    visual: "packsure",
-  },
-  {
-    id: "oiltrace",
-    index: "02",
-    name: "Oiltrace",
-    repoName: "Oiltrace",
-    category: "Environmental Technology / Backend Engineering",
-    description:
-      "A backend-focused project exploring an oil-spill-related problem through software.",
-    overview:
-      "Oiltrace is an ML pipeline exploring oil-spill detection from imagery together with vessel-behaviour analysis. It includes a U-Net segmentation model with training and dataset tooling, spectral-analysis and spill-detection modules, and AIS vessel-data integration feeding a behaviour-analysis layer, exposed through a Python API.",
-    problem:
-      "Detecting and monitoring oil spills early — and understanding vessel behaviour around them — is difficult at sea scale. The project experiments with segmentation-based detection on imagery and AIS-derived movement signals as complementary data sources.",
-    stack: ["Python", "U-Net", "Computer Vision", "AIS Data", "JavaScript"],
-    verifiedModules: [
-      "unet.py / train.py / dataset.py — segmentation model + training pipeline",
-      "spill_detection.py / spectral_analysis.py — detection & spectral modules",
-      "ais_integration.py / behaviour_analysis.py / detect_loitering.py — vessel signals",
-      "ml_pipeline.py — pipeline orchestration",
-      "api.py — Python backend interface",
-    ],
-    verifiedNote:
-      "Modules above are verified from the public Oiltrace repository structure (SIH 2026 project — 2). No detection-accuracy or live-monitoring claims are made.",
-    links: {
-      github: "https://github.com/106khattershorya-boop/Oiltrace",
-      live: null,
-    },
-    visual: "oiltrace",
-  },
-  {
     id: "syncfit",
-    index: "03",
+    index: "01",
     name: "SyncFit",
-    repoName: null, // TODO: set to the exact repository URL when public
+    repoName: "SyncFit",
     category: "Full-Stack Web Development",
     description:
-      "A full-stack fitness session booking platform with member-facing booking workflows and administrative functionality.",
+      "A full-stack gym session booking platform — member booking flows with waitlists, and admin session management.",
     overview:
-      "SyncFit is a full-stack booking platform for fitness sessions. Members browse sessions and manage bookings through member-facing workflows, while an administrative side handles session and schedule management. Built with React on the front end and a FastAPI + MongoDB backend.",
+      "SyncFit is a full-stack booking platform for gym sessions. Members register and browse upcoming sessions with activity and date filters, book or cancel spots subject to per-session capacity, and can join a waitlist that automatically promotes them when a spot opens. An admin role handles session creation and member check-ins, and a mock payment step (card, UPI, or cash at the gym) sits between booking and confirmation. Built with React on the front end and a FastAPI + MongoDB (PyMongo) backend, using MongoDB transactions for data consistency.",
     problem:
-      "Fitness studios need a straightforward way for members to discover, book and manage sessions while staff keep schedules and capacity under control — SyncFit explores that workflow end to end.",
+      "Fitness studios need a straightforward way for members to discover, book and manage sessions while staff keep schedules and capacity under control. SyncFit explores that workflow end to end — including the edge cases that make it interesting, like waitlist promotion and atomic capacity updates.",
     stack: ["React", "FastAPI", "MongoDB"],
+    verifiedModules: [
+      "backend/app/ — FastAPI service (Python + PyMongo)",
+      "backend/pyproject.toml — Python project configuration",
+      "frontend/ — React front end",
+    ],
     verifiedNote:
-      "Repository link is pending — the GitHub action currently points to the profile. Edit src/data/profile.ts to attach the exact repository when public.",
+      "Repository structure and README reviewed from the public SyncFit repository (github.com/106khattershorya-boop/SyncFit). Features listed reflect the project's own README; no deployment, accuracy or user-metrics claims are made.",
     links: {
-      github: null, // falls back to GitHub profile — do not invent a URL
+      github: "https://github.com/106khattershorya-boop/SyncFit",
       live: null,
     },
     visual: "syncfit",
@@ -240,7 +188,7 @@ export const footer = {
 } as const;
 
 export const sectionHeadings = {
-  projects: "SELECTED PROJECTS / 01—03",
+  projects: "SELECTED PROJECTS / 01",
   projectsSub: "Experiments, systems, and products built through code.",
   stack: "TOOLS OF THE TRADE.",
   contact: "HAVE SOMETHING INTERESTING IN MIND?",

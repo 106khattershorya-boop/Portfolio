@@ -52,3 +52,19 @@ Work Log:
 
 Stage Summary:
 - Original NEON NOIR portfolio fully restored and running on port 3000; cinematic version preserved at branch backup/cinematic-overhaul (git checkout backup/cinematic-overhaul to retrieve); dev server persists via PPID=1 daemonization trick
+
+---
+Task ID: 17
+Agent: main
+Task: User request — keep only SyncFit in Projects, remove PackSure AI + Oiltrace; attach real repo URL https://github.com/106khattershorya-boop/SyncFit
+
+Work Log:
+- Verified SyncFit repo is public via GitHub page fetch (API rate-limited): backend/ (app/, pyproject.toml), frontend/, README.md; stack FastAPI + PyMongo + MongoDB + React; README-verified features: member/admin auth roles, session browsing with activity+date filters, 20-slot capacity, waitlist with auto-promotion, admin check-ins, mock payments (card/UPI/cash-at-gym), MongoDB transactions
+- profile.ts: projects array reduced to single SyncFit entry (index 01, repoName SyncFit, real GitHub link, verifiedModules from repo structure, honest verifiedNote); sectionHeadings.projects -> "SELECTED PROJECTS / 01"
+- Projects.tsx: heading range now renders "/ 01" for single project (was hardcoded "—{last}" which would print 01—01)
+- Left dormant PackSureVisual/OiltraceVisual components in ProjectVisual.tsx (unrendered, trivial to re-add later); terminal projects command is data-driven -> shows only SyncFit
+- Verified via agent-browser: heading "SELECTED PROJECTS / 01", single row with SyncFit visual, GITHUB link href = repo URL (not profile fallback), modal shows REPO / SYNCFIT — VERIFIED FROM SOURCE + README-verified overview, terminal projects -> "[01] SyncFit", Escape close OK, 0 page errors; eslint clean
+- Refreshed download/shorya-portfolio.zip (portable VS Code package) to match
+
+Stage Summary:
+- Portfolio now features SyncFit as the only project with its verified public repo link; content remains 100% README/repo-verified with no invented claims

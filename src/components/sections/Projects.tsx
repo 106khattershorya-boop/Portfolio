@@ -160,7 +160,7 @@ export default function Projects() {
           <p className="label-mono mb-4">FILE / PORTFOLIO — DISTRICT 02</p>
           <h2 className="h-section text-[clamp(2rem,5vw,4rem)] text-bone">
             {sectionHeadings.projects.split("/")[0]}
-            <span className="text-neon">/ {projects[0].index}—{projects.length.toString().padStart(2, "0")}</span>
+            <span className="text-neon">/ {projects[0].index}{projects.length > 1 ? `—${projects.length.toString().padStart(2, "0")}` : ""}</span>
           </h2>
           <p className="mt-4 max-w-lg text-[15px] text-dim md:text-base">
             {sectionHeadings.projectsSub}
